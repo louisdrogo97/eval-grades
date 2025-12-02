@@ -99,7 +99,7 @@ students$age <- round(students$age) # I round every age to the closest integer
 
 students |>
   ggplot(aes(x=age))+
-  geom_histogram(binwidth = 1, color = "white",alpha = 0.5)+
+  geom_histogram(binwidth = 1, color = "white")+
   labs(title = "Distribution of Student Age",x = "Age (Years)",y = "Density / Count")+
   theme_minimal()
 ```
