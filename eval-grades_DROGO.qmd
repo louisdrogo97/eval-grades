@@ -173,3 +173,23 @@ grades |>
 ```
 
 
+# V - Attendance analysis
+
+### Question 13
+
+```{r}
+grades |>
+  filter(!is.na(grade)) |>
+  left_join(students |> select(id,group,sex), by = "id")|>
+  group_by(id,group,sex) |>
+  summarise(nb_grades = n(), .groups = 'drop')|>
+  slice_tail(n=5)|>
+  knitr::kable()
+```
+
+
+
+
+
+
+
