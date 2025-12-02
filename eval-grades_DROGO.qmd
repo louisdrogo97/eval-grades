@@ -159,4 +159,17 @@ ggplot(avg_grades, aes(x = group, y = average_grades)) +
 
 ```
 
+### Question 12
+
+```{r}
+grades |>
+  left_join(courses %>% select(course_id, trimester), by = "course_id") |>
+  filter(!is.na(grade), !is.na(trimester)) |>
+  mutate(trimester = as.factor(trimester)) |>
+  ggplot(aes(x = grade)) + 
+    geom_histogram(binwidth = 1, color = "white") +
+    facet_wrap(~ trimester, scales = "free_y", ncol = 3)+
+  labs(title = "Distribution of grades per trimester",x = "Grades",y = "Number of obs")
+```
+
 
