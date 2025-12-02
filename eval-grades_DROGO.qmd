@@ -13,6 +13,7 @@ editor: visual
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(lubridate)
 library(vroom)
 library(here)
 
@@ -86,4 +87,23 @@ students |>
   geom_col()+
   labs(title = "Gender balance per Group",x = "Group Number",y = "Number of Students")
 ```
+
+
+### Question 7
+
+```{r}
+students <- students |>
+  mutate(age=time_length(today()- birth_date, unit="year"))
+
+students$age <- round(students$age) # I round every age to the closest integer
+
+students |>
+  ggplot(aes(x=age))+
+  geom_histogram(binwidth = 1, color = "white",alpha = 0.5)+
+  labs(title = "Distribution of Student Age",x = "Age (Years)",y = "Density / Count")+
+  theme_minimal()
+```
+
+
+
 
