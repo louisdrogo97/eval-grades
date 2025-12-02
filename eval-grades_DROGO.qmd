@@ -309,3 +309,33 @@ correlation_by_group <- average_grades_wide |>
 knitr::kable(correlation_by_group)
 ```
 
+
+### Question 22
+
+```{r}
+#| warning: false
+#| echo: false
+course_med <- "Medicine and Healthcare"
+course_war <- "Galactic Warfare and Military Tactics"
+
+correlation_by_group <- average_grades_wide |>
+  group_by(group) |>
+  summarise(
+    correlation = cor(.data[[course_med]], .data[[course_war]], use = "pairwise.complete.obs"),
+    .groups = 'drop'
+  )
+
+most_correlated_group <- correlation_by_group |>
+  mutate(abs_correlation = abs(correlation)) |>
+  slice_max(abs_correlation, n = 1) |>
+  pull(group) |>
+  as.character()
+
+data_most_correlated_group <- average_grades_wide |>
+  filter(group == most_correlated_group)
+
+ggplot(data_most_correlated_group, aes(x = .data[[course_war]], y = .data[[course_med]])) +
+  geom_point(color = "darkred", alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue")
+```
+
