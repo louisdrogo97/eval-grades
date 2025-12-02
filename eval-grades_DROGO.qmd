@@ -63,3 +63,18 @@ grades <- vroom("Data/grades.csv",delim = "|",na=c("$"),show_col_types = FALSE)
 
 
 # II - Population
+
+### Question 5
+
+```{r}
+students |>
+  group_by(group)|>
+  summarise(count=n())|>
+  ggplot(aes(x=group,y=count))+
+  geom_col()+
+  labs(title = "Number of Students per Group",x = "Group Number",y = "Number of Students")
+```
+
+
+### Question 6
+
