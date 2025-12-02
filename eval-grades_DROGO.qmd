@@ -105,5 +105,14 @@ students |>
 ```
 
 
+### Question 8
+
+```{r}
+students |>
+  group_by(group)|>
+  summarise(median=round(median(age)))|>
+  knitr::kable()
+```
+
 
 
