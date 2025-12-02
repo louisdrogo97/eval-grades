@@ -188,6 +188,17 @@ grades |>
 ```
 
 
+### Question 14
+
+```{r}
+grades |>
+  filter(!is.na(grade)) |>
+  left_join(students |> select(id,group,sex), by = "id")|>
+  group_by(id,group,sex) |>
+  summarise(nb_grades = n(), .groups = 'drop')|>
+  ggplot(aes(x = nb_grades, fill = sex)) +
+  geom_density(alpha = 0.6)
+```
 
 
 
