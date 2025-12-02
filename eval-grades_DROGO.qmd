@@ -231,4 +231,28 @@ grades_id15 |>
   geom_col()
 ```
 
+### Question 17
+
+```{r}
+grades_lat_lit_complete <- students |>
+  select(id, group) |>
+ left_join(grades_id15, by = "id") |>
+  mutate(nb_grades = replace_na(nb_grades, 0))
+
+grades_lat_lit_complete |>
+ ggplot(aes(x = group, y = nb_grades)) +
+ geom_boxplot()
+```
+
+
+### Question 18
+
+```{r}
+grades_lat_lit_sex <- grades_lat_lit_complete |>
+  left_join(students |> select(id, sex), by = "id")
+
+grades_lat_lit_sex |>
+  ggplot(aes(x = group, y = nb_grades, fill = sex)) +
+  geom_boxplot(position = position_dodge(width = 0.8))
+```
 
