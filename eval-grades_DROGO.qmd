@@ -279,3 +279,33 @@ course_cols_q19 <- courses |> pull(course) |> head(2)
 knitr::kable(average_grades_wide |> select(id, group, all_of(course_cols_q19)) |> slice_head(n = 5))
 ```
 
+
+### Question 20
+
+```{r}
+#| warning: false
+#| echo: false
+course_lat <- "Latin Language and Literature"
+course_xeno <- "Xenology and Extraterrestrial Life"
+
+average_grades_wide |>
+  ggplot(aes(x = .data[[course_xeno]], y = .data[[course_lat]])) +
+  geom_point(alpha = 0.6, color = "darkgreen") +
+  geom_smooth(method = "lm", se = FALSE, color = "red")
+```
+
+
+### Question 21
+
+```{r}
+course_med <- "Medicine and Healthcare"
+course_war <- "Galactic Warfare and Military Tactics"
+
+correlation_by_group <- average_grades_wide |>
+  group_by(group) |>
+  summarise(correlation = cor(.data[[course_med]], .data[[course_war]], use ="pairwise.complete.obs"),.groups = 'drop') |>
+  mutate(correlation = round(correlation, 4))
+
+knitr::kable(correlation_by_group)
+```
+
