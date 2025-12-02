@@ -78,3 +78,12 @@ students |>
 
 ### Question 6
 
+```{r}
+students |>
+  group_by(group,sex)|>
+  summarise(count=n(),.groups = "drop")|>
+  ggplot(aes(x=group,y=count,fill = sex))+
+  geom_col()+
+  labs(title = "Gender balance per Group",x = "Group Number",y = "Number of Students")
+```
+
