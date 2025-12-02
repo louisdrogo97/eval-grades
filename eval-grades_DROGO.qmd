@@ -221,5 +221,14 @@ students |>
   knitr::kable()
 ```
 
+### Question 16
+
+```{r}
+grades_id15 |>
+  group_by(nb_grades)|>
+  summarise(count=n())|>
+  ggplot(aes(x=as.factor(nb_grades),y=count))+
+  geom_col()
+```
 
 
