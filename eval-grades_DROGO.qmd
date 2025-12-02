@@ -20,7 +20,7 @@ here::i_am("eval-grades.Rproj")
 ```
 
 
-# Introduction
+# I - Introduction
 
 ## 1. Study Organisation
 
@@ -53,5 +53,13 @@ students <- vroom("Data/students.csv",delim = ",",show_col_types = FALSE)
 students$sex <- as.factor(students$sex)
 sapply(students, class)
 ```
+## 3. Graddes
 
 ### Question 4
+
+```{r}
+grades <- vroom("Data/grades.csv",delim = "|",na=c("$"),show_col_types = FALSE)
+```
+
+
+# II - Population
