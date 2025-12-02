@@ -8,6 +8,7 @@ editor: visual
 
 ```{r}
 #| message: false
+#| echo: false
 
 library(ggplot2)
 library(dplyr)
@@ -28,4 +29,17 @@ here::i_am("eval-grades.Rproj")
 ```{r}
 courses <- vroom("Data/courses.csv",delim = ",", show_col_types = FALSE)
 ```
+
+### Question 2
+
+```{r}
+#| echo: false
+courses |>
+  arrange(course)|>
+  rename("course name"=course,
+         "identifier"=course_id,
+         "number of exam"=nb_grades)|>
+  knitr::kable()
+```
+
 
