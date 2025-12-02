@@ -59,7 +59,9 @@ sapply(students, class)
 ### Question 4
 
 ```{r}
+#| warning: false
 grades <- vroom("Data/grades.csv",delim = "|",na=c("$"),show_col_types = FALSE)
+grades$grade <- as.numeric(grades$grade)
 ```
 
 
@@ -128,6 +130,8 @@ students|>
 
 # III - Simple grade analysis
 
+### Question 10
+
 ```{r}
 nb_grades <- grades |>
   filter(!is.na(grade))|>
@@ -137,5 +141,22 @@ nb_grades
 
 The data set contains **`r nb_grades`** grades.
 
+### Question 11
+
+```{r}
+course_id11 <- courses |>
+  filter(course == "Engineering and Technology of the Roman Empire") |>
+  pull(course_id)
+
+avg_grades <- grades |>
+  filter(course_id == course_id11, !is.na(grade)) |>
+  left_join(students |> select(id, group), by = "id") |>
+  group_by(group) |>
+  summarise(average_grades = mean(grade, na.rm = TRUE), .groups = "drop")
+
+ggplot(avg_grades, aes(x = group, y = average_grades)) +
+  geom_col()
+
+```
 
 
