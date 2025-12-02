@@ -114,5 +114,15 @@ students |>
   knitr::kable()
 ```
 
+### Question 9
+
+```{r}
+students|>
+  group_by(group)|>
+  slice_max(order_by = age, n = 1, with_ties = FALSE)|>
+  select(id, sex, age, group)|>
+  arrange(desc(age))|>
+  knitr::kable()
+```
 
 
