@@ -197,10 +197,29 @@ grades |>
   group_by(id,group,sex) |>
   summarise(nb_grades = n(), .groups = 'drop')|>
   ggplot(aes(x = nb_grades, fill = sex)) +
-  geom_density(alpha = 0.6)
+  geom_density(alpha = 0.4)
 ```
 
 
+### Question 15
+
+```{r}
+course_id15 <- courses|>
+  filter(course == "Latin Language and Literature") |>
+  pull(course_id)
+
+grades_id15 <- grades |>
+  filter(course_id == course_id15, !is.na(grade)) |>
+  group_by(id) |>
+  summarise(nb_grades= n(), .groups = 'drop')
+
+students |>
+  select(id, group) |>
+  left_join(grades_id15, by = "id") |>
+  select(id, group, nb_grades)|>
+  slice_tail(n=5)|>
+  knitr::kable()
+```
 
 
 
