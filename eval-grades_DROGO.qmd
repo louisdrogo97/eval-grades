@@ -234,14 +234,11 @@ grades_id15 |>
 ### Question 17
 
 ```{r}
-grades_lat_lit_complete <- students |>
+students |>
   select(id, group) |>
- left_join(grades_id15, by = "id") |>
-  mutate(nb_grades = replace_na(nb_grades, 0))
-
-grades_lat_lit_complete |>
- ggplot(aes(x = group, y = nb_grades)) +
- geom_boxplot()
+  left_join(grades_id15, by = "id")|>
+  ggplot(aes(x = group, y = nb_grades)) +
+  geom_boxplot()
 ```
 
 
@@ -254,5 +251,31 @@ grades_lat_lit_sex <- grades_lat_lit_complete |>
 grades_lat_lit_sex |>
   ggplot(aes(x = group, y = nb_grades, fill = sex)) +
   geom_boxplot(position = position_dodge(width = 0.8))
+```
+# V - Grade analysis
+
+### Question 19
+
+```{r}
+average_grades_long <- grades |>
+  filter(!is.na(grade)) |>
+  group_by(id, course_id) |>
+  summarise(avg_grade = mean(grade), .groups = 'drop')
+
+average_grades_by_course <- average_grades_long |>
+  left_join(courses |> select(course_id, course), by = "course_id") |>
+  left_join(students |> select(id, group), by = "id") |>
+  select(id, group, course, avg_grade)
+
+average_grades_wide <- average_grades_by_course |>
+  pivot_wider(
+    id_cols = c(id, group),
+    names_from = course,
+    values_from = avg_grade
+  ) |>
+  arrange(id)
+
+course_cols_q19 <- courses |> pull(course) |> head(2)
+knitr::kable(average_grades_wide |> select(id, group, all_of(course_cols_q19)) |> slice_head(n = 5))
 ```
 
