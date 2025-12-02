@@ -4,3 +4,28 @@ author: "Louis DROGO"
 format: html
 editor: visual
 ---
+
+
+```{r}
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(vroom)
+library(here)
+
+here::i_am("eval-grades.Rproj")
+```
+
+
+# Introduction
+
+## 1. Study Organisation
+
+### Question 1
+
+```{r}
+courses <- vroom("Data/courses.csv",delim = ",", show_col_types = FALSE)
+```
+
