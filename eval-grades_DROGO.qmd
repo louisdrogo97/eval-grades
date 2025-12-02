@@ -43,3 +43,15 @@ courses |>
 ```
 
 
+## 2. Students
+
+### Question 3
+
+```{r}
+#| echo: false
+students <- vroom("Data/students.csv",delim = ",",show_col_types = FALSE)
+students$sex <- as.factor(students$sex)
+sapply(students, class)
+```
+
+### Question 4
