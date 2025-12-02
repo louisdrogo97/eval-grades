@@ -23,6 +23,8 @@ here::i_am("eval-grades.Rproj")
 
 # I - Introduction
 
+Here is the link to my github [graded lab](https://github.com/louisdrogo97/eval-grades.git).
+
 ## 1. Study Organisation
 
 ### Question 1
@@ -234,9 +236,11 @@ grades_id15 |>
 ### Question 17
 
 ```{r}
-students |>
+#| warning: false
+grades_lat_lit_complete <- students |>
   select(id, group) |>
-  left_join(grades_id15, by = "id")|>
+  left_join(grades_id15, by = "id")
+grades_lat_lit_complete|>
   ggplot(aes(x = group, y = nb_grades)) +
   geom_boxplot()
 ```
