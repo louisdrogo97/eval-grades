@@ -126,3 +126,16 @@ students|>
 ```
 
 
+# III - Simple grade analysis
+
+```{r}
+nb_grades <- grades |>
+  filter(!is.na(grade))|>
+  nrow()
+nb_grades
+```
+
+The data set contains **`r nb_grades`** grades.
+
+
+
